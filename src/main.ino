@@ -3,9 +3,9 @@
 // Include the Arduino Stepper.h library:
 #include <Stepper.h>
 
-// Define variables to read from joystick
+// Define analog pins to read from joystick
 int analogX = 0;
-int analogY = 0;
+int analogY = 1;
 // Define variables to move steppers
 int stpr1 = 0;
 int stpr2 = 0;
@@ -35,17 +35,20 @@ void setup() {
 
 
 void loop() {
-      // Step one revolution in one direction:
-      Serial.println("clockwise");
-      myStepper0.step(stepsPerRevolution);
-      delay(500);
-      myStepper1.step(stepsPerRevolution);
+      stpr1 = analogRead(analogX);
+      stpr2 = analogRead(analogY);
+      if (stpr1 < 450) {
+            myStepper0.step(-500);
+      } else if (stpr1 > 550) {
+            myStepper0.step(500);
+      }
+      
+      if (stpr2 < 450) {
+            myStepper1.step(-500);
+      } else if (stpr2 > 550) {
+            myStepper1.step(500);
+      }
+
       delay(500);
       
-      // Step one revolution in the other direction:
-      Serial.println("counterclockwise");
-      myStepper0.step(-stepsPerRevolution);
-      delay(500);
-      myStepper1.step(-stepsPerRevolution);
-      delay(500);
 }
