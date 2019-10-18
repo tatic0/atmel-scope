@@ -37,18 +37,26 @@ void setup() {
 void loop() {
       stpr1 = analogRead(analogX);
       stpr2 = analogRead(analogY);
-      if (stpr1 < 450) {
-            myStepper0.step(-500);
-      } else if (stpr1 > 550) {
-            myStepper0.step(500);
-      }
-      
-      if (stpr2 < 450) {
-            myStepper1.step(-500);
-      } else if (stpr2 > 550) {
-            myStepper1.step(500);
-      }
-
-      delay(500);
+      if (stpr1 < 200) {
+            myStepper0.step(-100);
+      } else { 
+            myStepper0.step(0);
+      } 
+      if (stpr1 > 800) {
+            myStepper0.step(100);
+      } else { 
+            myStepper0.step(0);
+      } 
+      if (stpr2 < 200) {
+            myStepper1.step(-100);
+      } else { 
+            myStepper1.step(0);
+      } 
+      if (stpr2 > 800) {
+            myStepper1.step(100);
+      } else { 
+            myStepper1.step(0);
+      } 
+      delay(100);
       
 }
