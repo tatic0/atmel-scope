@@ -38,10 +38,11 @@ void setup() {
       // Set the speed to 5 rpm:
       myStepper0.setSpeed(10);
       myStepper1.setSpeed(10);
+      myStepper2.setSpeed(10);
       // Declare pushbutton as input
       pinMode(inPin1, INPUT);
       pinMode(inPin0, INPUT);
-      pinMode(LED_BUILTIN, OUTPUT);
+      //pinMode(LED_BUILTIN, OUTPUT);
       // Begin Serial communication at a baud rate of 9600:
       Serial.begin(9600);
       Serial.println("Code: 28BJ48-ULN2003A v0.4");
@@ -77,21 +78,13 @@ void loop() {
             Serial.println("zoom stop");
       } else {
             Serial.println("zoom in");
-            digitalWrite(LED_BUILTIN, HIGH);
-            delay(100);
-            digitalWrite(LED_BUILTIN, LOW);
+            zoomin();
       }
       if (selval0 == HIGH) {
             Serial.println("zoom stop");
       } else {
             Serial.println("zoom out");
-            digitalWrite(LED_BUILTIN, HIGH);
-            delay(140);
-            digitalWrite(LED_BUILTIN, LOW);
-            delay(140);
-            digitalWrite(LED_BUILTIN, HIGH);
-            delay(140);
-            digitalWrite(LED_BUILTIN, LOW);
+            zoomout();
       }
       delay(50);
 }
