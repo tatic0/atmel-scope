@@ -9,6 +9,13 @@ int analogY = 1;
 // Define variables to move steppers
 int stpr1 = 0;
 int stpr2 = 0;
+// Dependig on the pin connected to the select button,
+// define variable to read pin status
+int inPin1 = 1;
+int inPin0 = 0;
+int selval1 = 0;
+int selval0 = 0;
+
 
 // Define number of steps per rotation:
 const int stepsPerRevolution = 2048;
@@ -27,10 +34,13 @@ void setup() {
       // Set the speed to 5 rpm:
       myStepper0.setSpeed(10);
       myStepper1.setSpeed(10);
-      
+      // Declare pushbutton as input
+      pinMode(inPin1, INPUT);
+      pinMode(inPin0, INPUT);
+      pinMode(LED_BUILTIN, OUTPUT);
       // Begin Serial communication at a baud rate of 9600:
       Serial.begin(9600);
-      Serial.println("Code: 28BJ48-ULN2003A v0.2");
+      Serial.println("Code: 28BJ48-ULN2003A v0.4");
 }
 
 
@@ -56,7 +66,29 @@ void loop() {
             myStepper1.step(100);
       } else { 
             myStepper1.step(0);
-      } 
-      delay(100);
+      }
+      selval1 = digitalRead(inPin1); 
+      selval0 = digitalRead(inPin0); 
+      if (selval1 == HIGH) {
+            Serial.println("zoom stop");
+      } else {
+            Serial.println("zoom in");
+            digitalWrite(LED_BUILTIN, HIGH);
+            delay(100);
+            digitalWrite(LED_BUILTIN, LOW);
+      }
+      if (selval0 == HIGH) {
+            Serial.println("zoom stop");
+      } else {
+            Serial.println("zoom out");
+            digitalWrite(LED_BUILTIN, HIGH);
+            delay(140);
+            digitalWrite(LED_BUILTIN, LOW);
+            delay(140);
+            digitalWrite(LED_BUILTIN, HIGH);
+            delay(140);
+            digitalWrite(LED_BUILTIN, LOW);
+      }
+      delay(50);
       
 }
