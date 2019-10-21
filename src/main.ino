@@ -28,7 +28,11 @@ const int stepsPerRevolution = 2048;
 // Create stepper object called 'myStepper', note the pin order:
 Stepper myStepper0 = Stepper(stepsPerRevolution, 6, 8, 7, 9);
 Stepper myStepper1 = Stepper(stepsPerRevolution, 2, 4, 3, 5);
+Stepper myStepper2 = Stepper(stepsPerRevolution, 10, 12, 11, 13);
 
+//declare empty function to make compiler happy.
+void zoomin();
+void zoomout();
 
 void setup() {
       // Set the speed to 5 rpm:
@@ -90,5 +94,13 @@ void loop() {
             digitalWrite(LED_BUILTIN, LOW);
       }
       delay(50);
-      
+}
+
+
+void zoomin(){
+      myStepper2.step(50);
+}
+
+void zoomout(){
+      myStepper2.step(-50);
 }
